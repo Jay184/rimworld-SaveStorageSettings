@@ -13,8 +13,13 @@
 	<SaveStorageSettings.AppendBillsDesc>Append previously saved bills to the bills already defined in the work table.</SaveStorageSettings.AppendBillsDesc>
 
 	<SaveStorageSettings.LoadAsNew>Load As New</SaveStorageSettings.LoadAsNew>
+	<SaveStorageSettings.DeleteSettings>Delete this saved setting</SaveStorageSettings.DeleteSettings>
+
 	<SaveStorageSettings.LoadOutfit>Load Outfit</SaveStorageSettings.LoadOutfit>
 	<SaveStorageSettings.SaveOutfit>Save Outfit</SaveStorageSettings.SaveOutfit>
+
+	<SaveStorageSettings.LoadRestriction>Load Restriction</SaveStorageSettings.LoadRestriction>
+	<SaveStorageSettings.SaveRestriction>Save Restriction</SaveStorageSettings.SaveRestriction>
 	
 	<SaveStorageSettings.LoadOperations>Load Operations</SaveStorageSettings.LoadOperations>
 	<SaveStorageSettings.SaveOperations>Save Operations</SaveStorageSettings.SaveOperations>

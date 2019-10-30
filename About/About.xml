@@ -1,16 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-	<ModMetaData>
-		<name>[KV] Save Storage, Outfit, Crafting, Drug, &amp; Operation Settings - 1.0</name>
-		<author>Kiame Vivacity</author>
-		<url>https://ludeon.com/forums/index.php?topic=34075.msg</url>
-		<supportedVersions>
-			<li>1.0</li>
-		</supportedVersions>
-		<description>Save and Load Dump/Stockpile and Outfit settings. These saves can be carried over from new games to old saves.
+<ModMetaData>
+  <name>[KV] Save Storage, Outfit, Crafting, Drug, &amp; Operation Settings - 1.0</name>
+  <author>Kiame Vivacity</author>
+  <url>https://ludeon.com/forums/index.php?topic=34075.msg</url>
+  <supportedVersions>
+    <li>1.0</li>
+  </supportedVersions>
+  <description>Save and Load Dump/Stockpile and Outfit settings. These saves can be carried over from new games to old saves.
 
 Future Plans: Add support for other types of Storage Zones.
 
+Changes:
+  Stockpiles:
+    - Save Priorities.
+    - Save Colors (Might be undesired, unless the mod to change the colors is installed).
+
+  Food restrictions:
+    - Can save and load just like outfits.
+
+  Bills:
+    - Count Equipped, count tainted, look in (stockpile), quality, only allowed ingredients, take to (stockpile), suspended now saved.
+
+  Dialog:
+  	- Saving textbar no longer overlaps the file list.
+
 Thank you to the translators:
 -Proxyer for Japanese
-		</description>
-	</ModMetaData>
+  </description>
+</ModMetaData>

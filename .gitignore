@@ -5,3 +5,6 @@ Source/SaveStorageSettingsUtil/obj/
 /Source/.vs/
 /Source/obj/
 Thumbs.db
+/Assembly-CSharp.dll
+/UnityEngine.dll
+/.vs

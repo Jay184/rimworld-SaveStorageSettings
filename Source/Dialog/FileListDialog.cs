@@ -6,10 +6,8 @@ using System.Reflection;
 using UnityEngine;
 using Verse;
 
-namespace RimWorld
-{
-    public abstract class FileListDialog : Window
-    {
+namespace RimWorld {
+    public abstract class FileListDialog : Window {
         protected const float BoxMargin = 20f;
 
         protected const float EntrySpacing = 3f;
@@ -30,7 +28,7 @@ namespace RimWorld
 
         protected const float NameTextFieldButtonSpace = 20f;
 
-        protected string interactButLabel = "Error";
+        protected string buttonLabel = "Error";
 
         protected float bottomAreaHeight;
 
@@ -46,62 +44,54 @@ namespace RimWorld
 
         public static readonly Color UnimportantTextColor = new Color(1f, 1f, 1f, 0.5f);
 
-        private readonly string StorageTypeName;
+        private readonly string DirectoryName;
 
-        public override Vector2 InitialSize
-        {
-            get
-            {
-                return new Vector2(600f, 700f);
-            }
-        }
+        public override Vector2 InitialSize => new Vector2(600f, 700f);
+        protected virtual bool ShowTextInput => false;
 
-        protected virtual bool ShouldDoTypeInField
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public FileListDialog(string type) {
+            DirectoryName = type;
 
-        public FileListDialog(string storageTypeName)
-        {
-            this.StorageTypeName = storageTypeName;
-
-            this.closeOnClickedOutside = true;
-            this.doCloseButton = true;
-            this.doCloseX = true;
-            this.forcePause = true;
-            this.absorbInputAroundWindow = true;
-            this.ReloadFiles();
+            closeOnClickedOutside = true;
+            doCloseButton = true;
+            doCloseX = true;
+            forcePause = true;
+            absorbInputAroundWindow = true;
+            ReloadFiles();
         }
 
         protected abstract void DoFileInteraction(FileInfo fi);
 
-        public override void DoWindowContents(Rect inRect)
-        {
+        public override void DoWindowContents(Rect inRect) {
             Vector2 vector = new Vector2(inRect.width - 16f, 36f);
             Vector2 vector2 = new Vector2(100f, vector.y - 2f);
             inRect.height -= 45f;
             float num = vector.y + 3f;
-            float height = (float)this.files.Count * num;
+            float rectPosY = 0f;
+            float height = files.Count * num;
             Rect viewRect = new Rect(0f, 0f, inRect.width - 16f, height);
             Rect outRect = new Rect(inRect.AtZero());
-            outRect.height -= this.bottomAreaHeight;
-            Widgets.BeginScrollView(outRect, ref this.scrollPosition, viewRect, true);
-            float num2 = 0f;
-            int num3 = 0;
-            foreach (FileInfo current in this.files)
-            {
-                Rect rect = new Rect(0f, num2, vector.x, vector.y);
-                if (num3 % 2 == 0)
-                {
+            outRect.height -= bottomAreaHeight;
+
+            if (ShowTextInput) {
+                outRect.height -= 64f;
+            }
+
+            Widgets.BeginScrollView(outRect, ref scrollPosition, viewRect, true);
+
+            for (int i = 0; i < files.Count; i++) {
+                FileInfo current = files[i];
+                Rect rect = new Rect(0f, rectPosY, vector.x, vector.y);
+
+                if (i % 2 == 0) {
                     Widgets.DrawAltRect(rect);
                 }
+
                 Rect position = rect.ContractedBy(1f);
+
                 GUI.BeginGroup(position);
                 string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(current.Name);
-                GUI.color = this.FileNameColor(current);
+                GUI.color = FileNameColor(current);
                 Rect rect2 = new Rect(15f, 0f, position.width, position.height);
                 Text.Anchor = TextAnchor.MiddleLeft;
                 Text.Font = GameFont.Small;
@@ -114,97 +104,83 @@ namespace RimWorld
                 Text.Font = GameFont.Small;
                 float num4 = vector.x - 2f - vector2.x - vector2.y;
                 Rect rect4 = new Rect(num4, 0f, vector2.x, vector2.y);
-                if (Widgets.ButtonText(rect4, this.interactButLabel, true, false, true))
-                {
-                    this.DoFileInteraction(current);
+                if (Widgets.ButtonText(rect4, buttonLabel, true, false, true)) {
+                    DoFileInteraction(current);
                 }
                 Rect rect5 = new Rect(num4 + vector2.x + 5f, 0f, vector2.y, vector2.y);
-                if (Widgets.ButtonImage(rect5, HarmonyPatches.DeleteXTexture))
-                {
+                if (Widgets.ButtonImage(rect5, HarmonyPatches.DeleteXTexture)) {
                     FileInfo localFile = current;
-                    Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("ConfirmDelete".Translate(new object[]
-                    {
-                        localFile.Name
-                    }), delegate
-                    {
+
+                    string message = TranslatorFormattedStringExtensions.Translate("ConfirmDelete", new NamedArgument(localFile.Name.Replace(localFile.Extension, ""), ""));
+
+                    Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation(message, delegate {
                         localFile.Delete();
-                        this.ReloadFiles();
+                        ReloadFiles();
                     }, true, null));
                 }
-                TooltipHandler.TipRegion(rect5, "DeleteThisSavegame".Translate());
+                TooltipHandler.TipRegion(rect5, "SaveStorageSettings.DeleteSettings".Translate());
+
                 GUI.EndGroup();
-                num2 += vector.y + 3f;
-                num3++;
+                rectPosY += vector.y + 3f;
             }
+
             Widgets.EndScrollView();
-            if (this.ShouldDoTypeInField)
-            {
-                this.DoTypeInField(inRect.AtZero());
+
+            if (ShowTextInput) {
+                DoTypeInField(inRect.AtZero());
             }
         }
 
-        protected void ReloadFiles()
-        {
-            IOUtil.TryGetDirectoryPath(this.StorageTypeName, out string path);
+        protected void ReloadFiles() {
+            if (TryGetDirectoryName(DirectoryName, out string path)) {
+                Directory.CreateDirectory(path);
+            }
 
-            this.files.Clear();
-            foreach (string file in Directory.GetFiles(path))
-            {
-                try
-                {
-                    this.files.Add(new FileInfo(file));
-                }
-                catch (Exception ex)
-                {
-                    Log.Error("Exception reloading " + file + ": " + ex.ToString());
-                }
+            files.Clear();
+            foreach (string file in Directory.GetFiles(path)) {
+                files.Add(new FileInfo(file));
             }
         }
 
-        protected virtual void DoTypeInField(Rect rect)
-        {
+        protected virtual void DoTypeInField(Rect rect) {
             GUI.BeginGroup(rect);
+
             bool flag = Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Return;
             float y = rect.height - 52f;
             Text.Font = GameFont.Small;
             Text.Anchor = TextAnchor.MiddleLeft;
             GUI.SetNextControlName("MapNameField");
             Rect rect2 = new Rect(5f, y, 400f, 35f);
-            string str = Widgets.TextField(rect2, this.typingName);
-            if (GenText.IsValidFilename(str))
-            {
-                this.typingName = str;
-            }
-            if (!this.focusedNameArea)
-            {
-                UI.FocusControl("MapNameField", this);
-                this.focusedNameArea = true;
-            }
             Rect rect3 = new Rect(420f, y, rect.width - 400f - 20f, 35f);
-            if (Widgets.ButtonText(rect3, "SaveGameButton".Translate(), true, false, true) || flag)
-            {
-                if (this.typingName.NullOrEmpty())
-                {
+            string str = Widgets.TextField(rect2, typingName);
+
+            if (GenText.IsValidFilename(str)) {
+                typingName = str;
+            }
+
+            if (!focusedNameArea) {
+                UI.FocusControl("MapNameField", this);
+                focusedNameArea = true;
+            }
+
+            if (Widgets.ButtonText(rect3, "SaveGameButton".Translate(), true, false, true) || flag) {
+                if (typingName.NullOrEmpty()) {
                     Messages.Message("NeedAName".Translate(), MessageTypeDefOf.RejectInput);
-                }
-                else
-                {
-                    FileInfo fi;
-                    IOUtil.TryGetFileInfo(this.StorageTypeName, this.typingName, out fi);
-                    this.DoFileInteraction(fi);
+                } else {
+                    TryGetFileInfo(DirectoryName, typingName, out FileInfo fi);
+                    DoFileInteraction(fi);
                 }
             }
+
             Text.Anchor = TextAnchor.UpperLeft;
             GUI.EndGroup();
         }
 
-        protected virtual Color FileNameColor(FileInfo fi)
-        {
+        protected virtual Color FileNameColor(FileInfo fi) {
             return DefaultFileTextColor;
         }
 
-        public static void DrawDateAndVersion(FileInfo fi, Rect rect)
-        {
+        public static void DrawDateAndVersion(FileInfo fi, Rect rect) {
             GUI.BeginGroup(rect);
             Text.Font = GameFont.Tiny;
             Text.Anchor = TextAnchor.UpperLeft;
@@ -213,6 +189,38 @@ namespace RimWorld
             Widgets.Label(rect2, fi.LastWriteTime.ToString("g"));
             Rect rect3 = new Rect(0f, rect2.yMax, rect.width, rect.height / 2f);
             GUI.EndGroup();
+        }
+
+
+        public static bool TryGetFileInfo(string storageTypeName, string fileName, out FileInfo fi) {
+            fi = null;
+
+            if (TryGetDirectoryName(storageTypeName, out string path)) {
+                Directory.CreateDirectory(path);
+                fi = new FileInfo(Path.Combine(path, $"{ fileName }.txt"));
+            }
+
+            return fi != null;
+        }
+        private static bool TryGetDirectoryName(string type, out string path) {
+            try {
+                MethodInfo method = typeof(GenFilePaths).GetMethod("FolderUnderSaveData", BindingFlags.Static | BindingFlags.NonPublic);
+
+                try {
+                    path = (string)method.Invoke(null, new object[] { $"SaveStorageSettings/{ type }" });
+                    return true;
+
+                } catch (Exception ex) when (ex is ArgumentException || ex is TargetParameterCountException) {
+                    Log.Error($"SaveStorageSettings: Failed to get folder name.{ Environment.NewLine }{ ex }");
+                    path = null;
+                    return false;
+                }
+
+            } catch (Exception ex) when (ex is AmbiguousMatchException || ex is ArgumentNullException) {
+                Log.Error($"SaveStorageSettings: Failed to get save directory.{ Environment.NewLine }{ ex }");
+                path = null;
+                return false;
+            }
         }
     }
 }

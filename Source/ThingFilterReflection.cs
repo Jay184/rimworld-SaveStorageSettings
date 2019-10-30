@@ -5,68 +5,41 @@ using System.Linq;
 using System.Reflection;
 using Verse;
 
-namespace SaveStorageSettings
-{
-    internal class ThingFilterReflection
-    {
+namespace SaveStorageSettings {
+    internal class ThingFilterReflection {
         private readonly ThingFilter filter;
 
-        internal ThingFilterReflection(ThingFilter filter)
-        {
+        internal ThingFilterReflection(ThingFilter filter) {
             this.filter = filter;
         }
 
-        internal IEnumerable<ThingDef> AllStorableThingDefs
-        {
-            get
-            {
+        internal IEnumerable<ThingDef> AllStorableThingDefs {
+            get {
                 return from def in DefDatabase<ThingDef>.AllDefs
                        where def.EverStorable(true)
                        select def;
             }
         }
 
-        internal HashSet<ThingDef> AllowedDefs
-        {
-            get
-            {
-                return (HashSet<ThingDef>)this.GetPrivateFieldInfo("allowedDefs").GetValue(this.filter);
-            }
-            set
-            {
-                this.GetPrivateFieldInfo("allowedDefs").SetValue(this.filter, value);
-            }
+        internal HashSet<ThingDef> AllowedDefs {
+            get => (HashSet<ThingDef>)GetPrivateFieldInfo("allowedDefs").GetValue(filter);
+            set => GetPrivateFieldInfo("allowedDefs").SetValue(filter, value);
         }
 
-        internal List<SpecialThingFilterDef> DisallowedSpecialFilters
-        {
-            get
-            {
-                return (List<SpecialThingFilterDef>)this.GetPrivateFieldInfo("disallowedSpecialFilters").GetValue(this.filter);
-            }
-            set
-            {
-                this.GetPrivateFieldInfo("disallowedSpecialFilters").SetValue(this.filter, value);
-            }
+        internal List<SpecialThingFilterDef> DisallowedSpecialFilters {
+            get => (List<SpecialThingFilterDef>)GetPrivateFieldInfo("disallowedSpecialFilters").GetValue(filter);
+            set => GetPrivateFieldInfo("disallowedSpecialFilters").SetValue(filter, value);
         }
 
-        internal QualityRange AllowedQualities
-        {
-            get
-            {
-                return (QualityRange)this.GetPrivateFieldInfo("allowedQualities").GetValue(this.filter);
-            }
+        internal QualityRange AllowedQualities => (QualityRange)GetPrivateFieldInfo("allowedQualities").GetValue(filter);
+
+        internal void SettingsChangedCallback() {
+            Action method = (Action)GetPrivateFieldInfo("settingsChangedCallback").GetValue(filter);
+
+            method?.Invoke();
         }
 
-        internal void SettingsChangedCallback()
-        {
-            Action a = ((Action)this.GetPrivateFieldInfo("settingsChangedCallback").GetValue(this.filter));
-            if (a != null)
-                a.Invoke();
-        }
-
-        private FieldInfo GetPrivateFieldInfo(string name)
-        {
+        private FieldInfo GetPrivateFieldInfo(string name) {
             return typeof(ThingFilter).GetField(name, BindingFlags.Instance | BindingFlags.NonPublic);
         }
 

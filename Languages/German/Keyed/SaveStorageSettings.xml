@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SaveStorageSettings.SaveZoneSettings>Einstellungen speichern</SaveStorageSettings.SaveZoneSettings>
+	<SaveStorageSettings.SaveZoneSettingsDesc>Speichere die Einstellungen dieser Lagerzone.</SaveStorageSettings.SaveZoneSettingsDesc>
+	<SaveStorageSettings.LoadZoneSettings>Einstellungen laden</SaveStorageSettings.LoadZoneSettings>
+	<SaveStorageSettings.LoadZoneSettingsDesc>Lade Einstellungen, die zuvor gespeichert wurden.</SaveStorageSettings.LoadZoneSettingsDesc>
+
+	<SaveStorageSettings.SaveBills>Aufgaben speichern</SaveStorageSettings.SaveBills>
+	<SaveStorageSettings.SaveBillsDesc>Speichere die Aufgaben dieses Werktisches.</SaveStorageSettings.SaveBillsDesc>
+	<SaveStorageSettings.LoadBills>Aufgaben laden</SaveStorageSettings.LoadBills>
+	<SaveStorageSettings.LoadBillsDesc>Lade zuvor gespeicherte Aufgaben.</SaveStorageSettings.LoadBillsDesc>
+	<SaveStorageSettings.AppendBills>Aufgaben hinzufügen</SaveStorageSettings.AppendBills>
+	<SaveStorageSettings.AppendBillsDesc>Füge Aufgaben zu diesen Werktisch hinzu.</SaveStorageSettings.AppendBillsDesc>
+
+	<SaveStorageSettings.LoadAsNew>Lade als Neues</SaveStorageSettings.LoadAsNew>
+	<SaveStorageSettings.DeleteSettings>Lösche diese Einstellung</SaveStorageSettings.DeleteSettings>
+
+	<SaveStorageSettings.LoadOutfit>Lade Outfit</SaveStorageSettings.LoadOutfit>
+	<SaveStorageSettings.SaveOutfit>Speichere Outfit</SaveStorageSettings.SaveOutfit>
+
+	<SaveStorageSettings.LoadRestriction>Lade Beschränkung</SaveStorageSettings.LoadRestriction>
+	<SaveStorageSettings.SaveRestriction>Speichere Beschränkung</SaveStorageSettings.SaveRestriction>
+	
+	<SaveStorageSettings.LoadOperations>Lade Operationen</SaveStorageSettings.LoadOperations>
+	<SaveStorageSettings.SaveOperations>Speichere Operationen</SaveStorageSettings.SaveOperations>
+	
+	<!-- %s will be replaced by the def name -->
+	<SaveStorageSettings.UnableToLoadRecipeDef>Konnte Aufgabe mit RecipeDef %s nicht laden.</SaveStorageSettings.UnableToLoadRecipeDef>
+	<SaveStorageSettings.ResearchNotDoneForRecipeDef>Forschung für %s noch nicht beendet.</SaveStorageSettings.ResearchNotDoneForRecipeDef>
+</LanguageData>
