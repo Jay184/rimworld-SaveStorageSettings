@@ -45,8 +45,8 @@ namespace SaveStorageSettings {
     static class Patch_Zone_Stockpile_GetGizmos {
         static void Postfix(Zone_Stockpile __instance, ref IEnumerable<Gizmo> __result) {
             List<Gizmo> gizmos = new List<Gizmo>(__result) {
-                GizmoUtil.SaveGizmo(new SaveZoneDialog("stockpiles", __instance)),
-                GizmoUtil.LoadGizmo(new LoadZoneDialog("stockpiles", __instance)),
+                GizmoUtil.SaveGizmo(new SaveZoneDialog("stockpiles", __instance), "SaveStorageSettings.SaveZoneSettings", "SaveStorageSettings.SaveZoneSettingsDesc"),
+                GizmoUtil.LoadGizmo(new LoadZoneDialog("stockpiles", __instance), "SaveStorageSettings.LoadZoneSettings", "SaveStorageSettings.LoadZoneSettingsDesc"),
             };
 
             __result = gizmos;
@@ -85,8 +85,8 @@ namespace SaveStorageSettings {
                 if (__instance.RaceProps.Animal) type = "operationsAnimal";
 
                 List<Gizmo> gizmos = new List<Gizmo>(__result) {
-                    GizmoUtil.SaveGizmo(new SaveOperationDialog(type, __instance)),
-                    GizmoUtil.LoadGizmo(new LoadOperationDialog(type, __instance))
+                    GizmoUtil.SaveGizmo(new SaveOperationDialog(type, __instance), "SaveStorageSettings.SaveOperations", "SaveStorageSettings.SaveBillsDesc"),
+                    GizmoUtil.LoadGizmo(new LoadOperationDialog(type, __instance), "SaveStorageSettings.LoadOperations", "SaveStorageSettings.LoadBillsDesc")
                 };
 
                 __result = gizmos;
@@ -209,9 +209,9 @@ namespace SaveStorageSettings {
             string typeName = GetTypeFromDef(__instance.def.defName);
 
             List<Gizmo> gizmos = new List<Gizmo>(__result) {
-                GizmoUtil.SaveGizmo(new SaveBillDialog(typeName, ((Building_WorkTable)__instance).billStack)),
-                GizmoUtil.LoadGizmo(new LoadBillDialog(typeName, ((Building_WorkTable)__instance).billStack, false)),
-                GizmoUtil.AppendGizmo(new LoadBillDialog(typeName, ((Building_WorkTable)__instance).billStack, true)),
+                GizmoUtil.SaveGizmo(new SaveBillDialog(typeName, ((Building_WorkTable)__instance).billStack), "SaveStorageSettings.SaveBills", "SaveStorageSettings.SaveBillsDesc"),
+                GizmoUtil.LoadGizmo(new LoadBillDialog(typeName, ((Building_WorkTable)__instance).billStack, false), "SaveStorageSettings.LoadBills", "SaveStorageSettings.LoadBillsDesc"),
+                GizmoUtil.AppendGizmo(new LoadBillDialog(typeName, ((Building_WorkTable)__instance).billStack, true), "SaveStorageSettings.AppendBills", "SaveStorageSettings.AppendBillsDesc"),
             };
 
             __result = gizmos;
@@ -244,8 +244,8 @@ namespace SaveStorageSettings {
     static class Patch_BuildingStorage_GetGizmos {
         static void Postfix(Building __instance, ref IEnumerable<Gizmo> __result) {
             List<Gizmo> gizmos = new List<Gizmo>(__result) {
-                GizmoUtil.SaveGizmo(new SaveStorageDialog(__instance.def.defName, ((Building_Storage)__instance).settings)),
-                GizmoUtil.LoadGizmo(new LoadStorageDialog(__instance.def.defName, ((Building_Storage)__instance).settings)),
+                GizmoUtil.SaveGizmo(new SaveStorageDialog(__instance.def.defName, ((Building_Storage)__instance).settings), "SaveStorageSettings.SaveZoneSettings", "SaveStorageSettings.SaveZoneSettingsDesc"),
+                GizmoUtil.LoadGizmo(new LoadStorageDialog(__instance.def.defName, ((Building_Storage)__instance).settings), "SaveStorageSettings.LoadZoneSettings", "SaveStorageSettings.LoadZoneSettingsDesc"),
             };
 
             __result = gizmos;
@@ -259,8 +259,8 @@ namespace SaveStorageSettings {
             if (( (Building_Grave)__instance ).assignedPawn != null) return;
 
             List<Gizmo> gizmos = new List<Gizmo>(__result) {
-                GizmoUtil.SaveGizmo(new SaveStorageDialog("graves", ((Building_Grave)__instance).GetStoreSettings())),
-                GizmoUtil.LoadGizmo(new LoadStorageDialog("graves", ((Building_Grave)__instance).GetStoreSettings())),
+                GizmoUtil.SaveGizmo(new SaveStorageDialog("graves", ((Building_Grave)__instance).GetStoreSettings()), "SaveStorageSettings.SaveGrave", "SaveStorageSettings.SaveGraveDesc"),
+                GizmoUtil.LoadGizmo(new LoadStorageDialog("graves", ((Building_Grave)__instance).GetStoreSettings()), "SaveStorageSettings.LoadGrave", "SaveStorageSettings.LoadGraveDesc"),
             };
 
             __result = gizmos;

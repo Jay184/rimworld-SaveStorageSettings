@@ -1,30 +1,50 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
-	<SaveStorageSettings.SaveZoneSettings>Einstellungen speichern</SaveStorageSettings.SaveZoneSettings>
-	<SaveStorageSettings.SaveZoneSettingsDesc>Speichere die Einstellungen dieser Lagerzone.</SaveStorageSettings.SaveZoneSettingsDesc>
-	<SaveStorageSettings.LoadZoneSettings>Einstellungen laden</SaveStorageSettings.LoadZoneSettings>
-	<SaveStorageSettings.LoadZoneSettingsDesc>Lade Einstellungen, die zuvor gespeichert wurden.</SaveStorageSettings.LoadZoneSettingsDesc>
+	<!-- Default or unknown storage types -->
+	<SaveStorageSettings.SaveSettings>Speichern</SaveStorageSettings.SaveSettings>
+	<SaveStorageSettings.SaveSettingsDesc>Speichere die Einstellungen in eine Datei.</SaveStorageSettings.SaveSettingsDesc>
+	<SaveStorageSettings.LoadSettings>Laden</SaveStorageSettings.LoadSettings>
+	<SaveStorageSettings.LoadSettingsDesc>Lade die Einstellungen aus einer Datei.</SaveStorageSettings.LoadSettingsDesc>
+	<SaveStorageSettings.AppendSettings>Hinzufügen</SaveStorageSettings.AppendSettings>
+	<SaveStorageSettings.AppendSettingsDesc>Füge Einstellungen aus einer Datei hinzu.</SaveStorageSettings.AppendSettingsDesc>
 
+	<!-- Stockpiles -->
+	<SaveStorageSettings.SaveZoneSettings>Lager speichern</SaveStorageSettings.SaveZoneSettings>
+	<SaveStorageSettings.SaveZoneSettingsDesc>Speichere die Einstellungen dieses Lagers in einer Datei.</SaveStorageSettings.SaveZoneSettingsDesc>
+	<SaveStorageSettings.LoadZoneSettings>Lager laden</SaveStorageSettings.LoadZoneSettings>
+	<SaveStorageSettings.LoadZoneSettingsDesc>Lade die Einstellungen für dieses Lager aus einer Datei.</SaveStorageSettings.LoadZoneSettingsDesc>
+
+	<!-- Bills -->
 	<SaveStorageSettings.SaveBills>Aufgaben speichern</SaveStorageSettings.SaveBills>
-	<SaveStorageSettings.SaveBillsDesc>Speichere die Aufgaben dieses Werktisches.</SaveStorageSettings.SaveBillsDesc>
+	<SaveStorageSettings.SaveBillsDesc>Speichere die Aufgaben in einer Datei.</SaveStorageSettings.SaveBillsDesc>
 	<SaveStorageSettings.LoadBills>Aufgaben laden</SaveStorageSettings.LoadBills>
-	<SaveStorageSettings.LoadBillsDesc>Lade zuvor gespeicherte Aufgaben.</SaveStorageSettings.LoadBillsDesc>
+	<SaveStorageSettings.LoadBillsDesc>Lade die Aufgaben aus einer Datei.</SaveStorageSettings.LoadBillsDesc>
 	<SaveStorageSettings.AppendBills>Aufgaben hinzufügen</SaveStorageSettings.AppendBills>
-	<SaveStorageSettings.AppendBillsDesc>Füge Aufgaben zu diesen Werktisch hinzu.</SaveStorageSettings.AppendBillsDesc>
+	<SaveStorageSettings.AppendBillsDesc>Füge die Aufgaben aus einer Datei hinzu.</SaveStorageSettings.AppendBillsDesc>
 
+	<!-- Assign dialogs -->
 	<SaveStorageSettings.LoadAsNew>Lade als Neues</SaveStorageSettings.LoadAsNew>
 	<SaveStorageSettings.DeleteSettings>Lösche diese Einstellung</SaveStorageSettings.DeleteSettings>
 
-	<SaveStorageSettings.LoadOutfit>Lade Outfit</SaveStorageSettings.LoadOutfit>
-	<SaveStorageSettings.SaveOutfit>Speichere Outfit</SaveStorageSettings.SaveOutfit>
+	<!-- Outfits -->
+	<SaveStorageSettings.SaveOutfit>Outfit speichern</SaveStorageSettings.SaveOutfit>
+	<SaveStorageSettings.LoadOutfit>Outfit laden</SaveStorageSettings.LoadOutfit>
 
-	<SaveStorageSettings.LoadRestriction>Lade Beschränkung</SaveStorageSettings.LoadRestriction>
-	<SaveStorageSettings.SaveRestriction>Speichere Beschränkung</SaveStorageSettings.SaveRestriction>
+	<!-- Drug policies -->
+	<SaveStorageSettings.SaveRestriction>Ernährungsplan speichern</SaveStorageSettings.SaveRestriction>
+	<SaveStorageSettings.LoadRestriction>Ernährungsplan laden</SaveStorageSettings.LoadRestriction>
 	
-	<SaveStorageSettings.LoadOperations>Lade Operationen</SaveStorageSettings.LoadOperations>
-	<SaveStorageSettings.SaveOperations>Speichere Operationen</SaveStorageSettings.SaveOperations>
-	
+	<!-- Operations -->
+	<SaveStorageSettings.SaveOperations>Operationen speichern</SaveStorageSettings.SaveOperations>
+	<SaveStorageSettings.LoadOperations>Operationen laden</SaveStorageSettings.LoadOperations>
+
+	<!-- Graves -->
+	<SaveStorageSettings.SaveGrave>Grab speichern</SaveStorageSettings.SaveGrave>
+	<SaveStorageSettings.SaveGraveDesc>Speichere die Einstellungen dieses Grabs in einer Datei.</SaveStorageSettings.SaveGraveDesc>
+	<SaveStorageSettings.LoadGrave>Grab laden</SaveStorageSettings.LoadGrave>
+	<SaveStorageSettings.LoadGraveDesc>Lade die Einstellungen für dieses Grab aus einer Datei.</SaveStorageSettings.LoadGraveDesc>
+
 	<!-- %s will be replaced by the def name -->
-	<SaveStorageSettings.UnableToLoadRecipeDef>Konnte Aufgabe mit RecipeDef %s nicht laden.</SaveStorageSettings.UnableToLoadRecipeDef>
+	<SaveStorageSettings.UnableToLoadRecipeDef>Konnte Aufgabe für %s nicht laden.</SaveStorageSettings.UnableToLoadRecipeDef>
 	<SaveStorageSettings.ResearchNotDoneForRecipeDef>Forschung für %s noch nicht beendet.</SaveStorageSettings.ResearchNotDoneForRecipeDef>
 </LanguageData>

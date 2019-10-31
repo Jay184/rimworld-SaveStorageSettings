@@ -6,13 +6,13 @@ using Verse;
 
 namespace SaveStorageSettings {
     public static class GizmoUtil {
-        public static Gizmo SaveGizmo(SaveDialog dialog, int groupkey = 987767552) {
+        public static Gizmo SaveGizmo(SaveDialog dialog, string labelKey = "SaveStorageSettings.SaveSettings", string descKey = "SaveStorageSettings.SaveSettingsDesc", int groupkey = 987767552) {
             if (dialog == null) throw new ArgumentNullException("dialog");
 
             return new Command_Action {
                 icon = HarmonyPatches.SaveTexture,
-                defaultLabel = "SaveStorageSettings.SaveZoneSettings".Translate(),
-                defaultDesc = "SaveStorageSettings.SaveZoneSettingsDesc".Translate(),
+                defaultLabel = labelKey.Translate(),
+                defaultDesc = descKey.Translate(),
                 activateSound = SoundDef.Named("Click"),
                 action = delegate {
                     Find.WindowStack.Add(dialog);
@@ -20,13 +20,13 @@ namespace SaveStorageSettings {
                 groupKey = groupkey
             };
         }
-        public static Gizmo LoadGizmo(LoadDialog dialog, int groupkey = 987767553) {
+        public static Gizmo LoadGizmo(LoadDialog dialog, string labelKey = "SaveStorageSettings.LoadSettings", string descKey = "SaveStorageSettings.LoadSettingsDesc", int groupkey = 987767553) {
             if (dialog == null) throw new ArgumentNullException("dialog");
 
             return new Command_Action {
                 icon = HarmonyPatches.LoadTexture,
-                defaultLabel = "SaveStorageSettings.LoadBills".Translate(),
-                defaultDesc = "SaveStorageSettings.LoadBillsDesc".Translate(),
+                defaultLabel = labelKey.Translate(),
+                defaultDesc = descKey.Translate(),
                 activateSound = SoundDef.Named("Click"),
                 action = delegate {
                     Find.WindowStack.Add(dialog);
@@ -34,13 +34,13 @@ namespace SaveStorageSettings {
                 groupKey = groupkey
             };
         }
-        public static Gizmo AppendGizmo(LoadDialog dialog, int groupkey = 987767554) {
+        public static Gizmo AppendGizmo(LoadDialog dialog, string labelKey = "SaveStorageSettings.AppendSettings", string descKey = "SaveStorageSettings.AppendSettingsDesc", int groupkey = 987767554) {
             if (dialog == null) throw new ArgumentNullException("dialog");
 
             return new Command_Action {
                 icon = HarmonyPatches.AppendTexture,
-                defaultLabel = "SaveStorageSettings.AppendBills".Translate(),
-                defaultDesc = "SaveStorageSettings.AppendBillsDesc".Translate(),
+                defaultLabel = labelKey.Translate(),
+                defaultDesc = descKey.Translate(),
                 activateSound = SoundDef.Named("Click"),
                 action = delegate {
                     Find.WindowStack.Add(dialog);
@@ -54,8 +54,8 @@ namespace SaveStorageSettings {
             SaveStorageDialog saveDialog = new SaveStorageDialog(type, settings);
             LoadStorageDialog loadDialog = new LoadStorageDialog(type, settings);
 
-            gizmos.Add(SaveGizmo(saveDialog, groupKey));
-            gizmos.Add(LoadGizmo(loadDialog, groupKey + 1));
+            gizmos.Add(SaveGizmo(saveDialog, groupkey: groupKey));
+            gizmos.Add(LoadGizmo(loadDialog, groupkey: groupKey + 1));
 
             return gizmos;
         }

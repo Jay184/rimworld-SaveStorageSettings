@@ -160,7 +160,7 @@ namespace SaveStorageSettings {
                             return false;
                         }
 
-                        if (value == "recipeDefName") bill = new Bill_Production(def);
+                        if (key == "recipeDefName") bill = new Bill_Production(def);
                         else bill = new Bill_ProductionWithUft(def);
 
                         filter = bill.ingredientFilter;

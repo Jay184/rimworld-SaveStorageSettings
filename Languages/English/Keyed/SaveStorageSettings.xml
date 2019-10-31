@@ -1,30 +1,50 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
-	<SaveStorageSettings.SaveZoneSettings>Save Settings</SaveStorageSettings.SaveZoneSettings>
-	<SaveStorageSettings.SaveZoneSettingsDesc>Save this storage zone's settings.</SaveStorageSettings.SaveZoneSettingsDesc>
-	<SaveStorageSettings.LoadZoneSettings>Load Settings</SaveStorageSettings.LoadZoneSettings>
-	<SaveStorageSettings.LoadZoneSettingsDesc>Load previously saved storage zone settings.</SaveStorageSettings.LoadZoneSettingsDesc>
+	<!-- Default or unknown storage types -->
+	<SaveStorageSettings.SaveSettings>Save</SaveStorageSettings.SaveSettings>
+	<SaveStorageSettings.SaveSettingsDesc>Save settings to file.</SaveStorageSettings.SaveSettingsDesc>
+	<SaveStorageSettings.LoadSettings>Load</SaveStorageSettings.LoadSettings>
+	<SaveStorageSettings.LoadSettingsDesc>Load settings from file.</SaveStorageSettings.LoadSettingsDesc>
+	<SaveStorageSettings.AppendSettings>Append</SaveStorageSettings.AppendSettings>
+	<SaveStorageSettings.AppendSettingsDesc>Append settings from file.</SaveStorageSettings.AppendSettingsDesc>
 
-	<SaveStorageSettings.SaveBills>Save Bills</SaveStorageSettings.SaveBills>
-	<SaveStorageSettings.SaveBillsDesc>Save this work table's bills.</SaveStorageSettings.SaveBillsDesc>
-	<SaveStorageSettings.LoadBills>Load Bills</SaveStorageSettings.LoadBills>
-	<SaveStorageSettings.LoadBillsDesc>Load previously saved work table bills.</SaveStorageSettings.LoadBillsDesc>
-	<SaveStorageSettings.AppendBills>Append Bills</SaveStorageSettings.AppendBills>
-	<SaveStorageSettings.AppendBillsDesc>Append previously saved bills to the bills already defined in the work table.</SaveStorageSettings.AppendBillsDesc>
+	<!-- Stockpiles -->
+	<SaveStorageSettings.SaveZoneSettings>Save storage settings</SaveStorageSettings.SaveZoneSettings>
+	<SaveStorageSettings.SaveZoneSettingsDesc>Save this storage's settings to file.</SaveStorageSettings.SaveZoneSettingsDesc>
+	<SaveStorageSettings.LoadZoneSettings>Load storage settings</SaveStorageSettings.LoadZoneSettings>
+	<SaveStorageSettings.LoadZoneSettingsDesc>Load this storage's settings from file.</SaveStorageSettings.LoadZoneSettingsDesc>
 
-	<SaveStorageSettings.LoadAsNew>Load As New</SaveStorageSettings.LoadAsNew>
+	<!-- Bills -->
+	<SaveStorageSettings.SaveBills>Save bills</SaveStorageSettings.SaveBills>
+	<SaveStorageSettings.SaveBillsDesc>Save the bills to file.</SaveStorageSettings.SaveBillsDesc>
+	<SaveStorageSettings.LoadBills>Load bills</SaveStorageSettings.LoadBills>
+	<SaveStorageSettings.LoadBillsDesc>Load the bills from file.</SaveStorageSettings.LoadBillsDesc>
+	<SaveStorageSettings.AppendBills>Append bills</SaveStorageSettings.AppendBills>
+	<SaveStorageSettings.AppendBillsDesc>Append the bills from file.</SaveStorageSettings.AppendBillsDesc>
+
+	<!-- Assign dialogs -->
+	<SaveStorageSettings.LoadAsNew>Load as new</SaveStorageSettings.LoadAsNew>
 	<SaveStorageSettings.DeleteSettings>Delete this saved setting</SaveStorageSettings.DeleteSettings>
 
-	<SaveStorageSettings.LoadOutfit>Load Outfit</SaveStorageSettings.LoadOutfit>
-	<SaveStorageSettings.SaveOutfit>Save Outfit</SaveStorageSettings.SaveOutfit>
+	<!-- Outfits -->
+	<SaveStorageSettings.SaveOutfit>Save outfit</SaveStorageSettings.SaveOutfit>
+	<SaveStorageSettings.LoadOutfit>Load outfit</SaveStorageSettings.LoadOutfit>
 
-	<SaveStorageSettings.LoadRestriction>Load Restriction</SaveStorageSettings.LoadRestriction>
-	<SaveStorageSettings.SaveRestriction>Save Restriction</SaveStorageSettings.SaveRestriction>
+	<!-- Drug policies -->
+	<SaveStorageSettings.SaveRestriction>Save restriction</SaveStorageSettings.SaveRestriction>
+	<SaveStorageSettings.LoadRestriction>Load restriction</SaveStorageSettings.LoadRestriction>
 	
-	<SaveStorageSettings.LoadOperations>Load Operations</SaveStorageSettings.LoadOperations>
-	<SaveStorageSettings.SaveOperations>Save Operations</SaveStorageSettings.SaveOperations>
-	
+	<!-- Operations -->
+	<SaveStorageSettings.SaveOperations>Save operations</SaveStorageSettings.SaveOperations>
+	<SaveStorageSettings.LoadOperations>Load operations</SaveStorageSettings.LoadOperations>
+
+	<!-- Graves -->
+	<SaveStorageSettings.SaveGrave>Save grave settings</SaveStorageSettings.SaveGrave>
+	<SaveStorageSettings.SaveGraveDesc>Save this grave's settings to file.</SaveStorageSettings.SaveGraveDesc>
+	<SaveStorageSettings.LoadGrave>Load grave settings</SaveStorageSettings.LoadGrave>
+	<SaveStorageSettings.LoadGraveDesc>Load this grave's settings from file.</SaveStorageSettings.LoadGraveDesc>
+
 	<!-- %s will be replaced by the def name -->
-	<SaveStorageSettings.UnableToLoadRecipeDef>Unable to load bill with RecipeDef of %s</SaveStorageSettings.UnableToLoadRecipeDef>
-	<SaveStorageSettings.ResearchNotDoneForRecipeDef>Research is not done for %s</SaveStorageSettings.ResearchNotDoneForRecipeDef>
+	<SaveStorageSettings.UnableToLoadRecipeDef>Unable to load bill with RecipeDef of %s.</SaveStorageSettings.UnableToLoadRecipeDef>
+	<SaveStorageSettings.ResearchNotDoneForRecipeDef>Research is not done for %s.</SaveStorageSettings.ResearchNotDoneForRecipeDef>
 </LanguageData>
