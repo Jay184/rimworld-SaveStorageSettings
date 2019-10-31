@@ -85,8 +85,8 @@ namespace SaveStorageSettings {
                 if (__instance.RaceProps.Animal) type = "operationsAnimal";
 
                 List<Gizmo> gizmos = new List<Gizmo>(__result) {
-                    GizmoUtil.SaveGizmo(new SaveOperationDialog(type, __instance), "SaveStorageSettings.SaveOperations", "SaveStorageSettings.SaveBillsDesc"),
-                    GizmoUtil.LoadGizmo(new LoadOperationDialog(type, __instance), "SaveStorageSettings.LoadOperations", "SaveStorageSettings.LoadBillsDesc")
+                    GizmoUtil.SaveGizmo(new SaveOperationDialog(type, __instance), "SaveStorageSettings.SaveOperations", "SaveStorageSettings.SaveOperationsDesc"),
+                    GizmoUtil.LoadGizmo(new LoadOperationDialog(type, __instance), "SaveStorageSettings.LoadOperations", "SaveStorageSettings.LoadOperationsDesc")
                 };
 
                 __result = gizmos;

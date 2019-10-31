@@ -36,7 +36,9 @@
 	
 	<!-- Operations -->
 	<SaveStorageSettings.SaveOperations>Operationen speichern</SaveStorageSettings.SaveOperations>
+	<SaveStorageSettings.SaveOperationsDesc>Speichere die Operationen in einer Datei.</SaveStorageSettings.SaveOperationsDesc>
 	<SaveStorageSettings.LoadOperations>Operationen laden</SaveStorageSettings.LoadOperations>
+	<SaveStorageSettings.LoadOperationsDesc>Lade die Operationen aus einer Datei.</SaveStorageSettings.LoadOperationsDesc>
 
 	<!-- Graves -->
 	<SaveStorageSettings.SaveGrave>Grab speichern</SaveStorageSettings.SaveGrave>

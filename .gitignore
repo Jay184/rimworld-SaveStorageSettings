@@ -9,3 +9,5 @@ Thumbs.db
 /UnityEngine.dll
 /.vs
 /Source/bin/Debug/SaveStorageSettings
+/Source/bin/Debug
+/Source/SaveStorageSettingsUtil/bin/Debug
