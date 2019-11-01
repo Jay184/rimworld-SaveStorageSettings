@@ -77,7 +77,7 @@ namespace SaveStorageSettings {
         static readonly SaveOperationDialog SaveDialog = new SaveOperationDialog("operations", null);
         static readonly LoadOperationDialog LoadDialog = new LoadOperationDialog("operations", null);
 
-        static readonly Gizmo SaveGizmo = GizmoUtil.SaveGizmo(SaveDialog, "SaveStorageSettings.SaveOperations", "SaveStorageSettings.SaveZoneSaveOperationsDescSettingsDesc");
+        static readonly Gizmo SaveGizmo = GizmoUtil.SaveGizmo(SaveDialog, "SaveStorageSettings.SaveOperations", "SaveStorageSettings.SaveOperationsDesc");
         static readonly Gizmo LoadGizmo = GizmoUtil.LoadGizmo(LoadDialog, "SaveStorageSettings.LoadOperations", "SaveStorageSettings.LoadOperationsDesc");
 
 
@@ -86,8 +86,8 @@ namespace SaveStorageSettings {
         }
         static void Postfix(Pawn __instance, ref IEnumerable<Gizmo> __result) {
             if (!(bool)OnOperationTab.GetValue(null)) return;
-
-            if (!__instance.IsColonist && !__instance.IsPrisoner) return;
+            
+            if (!__instance.IsColonist && !__instance.IsPrisoner && !__instance.RaceProps.Animal) return;
 
             SaveDialog.Pawn = __instance;
             LoadDialog.Pawn = __instance;

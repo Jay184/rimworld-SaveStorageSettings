@@ -16,6 +16,8 @@ namespace SaveStorageSettings {
 
         public void Save(FileInfo fileInfo) {
             try {
+                //Directory.CreateDirectory(fileInfo.Directory.FullName);
+
                 using (FileStream stream = File.Open(fileInfo.FullName, FileMode.Create, FileAccess.Write)) {
                     using (StreamWriter writer = new StreamWriter(stream)) {
 

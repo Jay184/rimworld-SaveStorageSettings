@@ -44,7 +44,14 @@ namespace RimWorld {
 
         public static readonly Color UnimportantTextColor = new Color(1f, 1f, 1f, 0.5f);
 
-        public string DirectoryName { get; set; }
+        public string DirectoryName {
+            get => directoryName;
+            set {
+                directoryName = value;
+                ReloadFiles();
+            }
+        }
+        private string directoryName;
 
 
         public override Vector2 InitialSize => new Vector2(600f, 700f);
@@ -58,7 +65,6 @@ namespace RimWorld {
             doCloseX = true;
             forcePause = true;
             absorbInputAroundWindow = true;
-            ReloadFiles();
         }
 
         protected abstract void DoFileInteraction(FileInfo fi);
@@ -133,13 +139,14 @@ namespace RimWorld {
         }
 
         protected void ReloadFiles() {
-            if (TryGetDirectoryName(DirectoryName, out string path)) {
-                Directory.CreateDirectory(path);
-            }
-
             files.Clear();
-            foreach (string file in Directory.GetFiles(path)) {
-                files.Add(new FileInfo(file));
+            if (TryGetBaseDirectory(out string path)) {
+                string destination = Path.Combine(path, DirectoryName);
+                if (!Directory.Exists(destination)) return;
+
+                foreach (string file in Directory.GetFiles(destination)) {
+                    files.Add(new FileInfo(file));
+                }
             }
         }
 
@@ -196,19 +203,21 @@ namespace RimWorld {
         public static bool TryGetFileInfo(string storageTypeName, string fileName, out FileInfo fi) {
             fi = null;
 
-            if (TryGetDirectoryName(storageTypeName, out string path)) {
-                Directory.CreateDirectory(path);
-                fi = new FileInfo(Path.Combine(path, $"{ fileName }.txt"));
+            if (TryGetBaseDirectory(out string path)) {
+                string destination = Path.Combine(path, storageTypeName);
+                Directory.CreateDirectory(destination);
+
+                fi = new FileInfo(Path.Combine(destination, $"{ fileName }.txt"));
             }
 
             return fi != null;
         }
-        private static bool TryGetDirectoryName(string type, out string path) {
+        private static bool TryGetBaseDirectory(out string path) {
             try {
                 MethodInfo method = typeof(GenFilePaths).GetMethod("FolderUnderSaveData", BindingFlags.Static | BindingFlags.NonPublic);
 
                 try {
-                    path = (string)method.Invoke(null, new object[] { $"SaveStorageSettings/{ type }" });
+                    path = (string)method.Invoke(null, new object[] { "SaveStorageSettings" });
                     return true;
 
                 } catch (Exception ex) when (ex is ArgumentException || ex is TargetParameterCountException) {
