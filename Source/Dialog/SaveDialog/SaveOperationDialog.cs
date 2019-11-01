@@ -4,7 +4,7 @@ using Verse;
 namespace SaveStorageSettings.Dialog {
     // Operations
     public class SaveOperationDialog : SaveDialog {
-        private readonly Pawn Pawn;
+        public Pawn Pawn { get; set; }
 
         public SaveOperationDialog(string type, Pawn pawn) : base(type) {
             Pawn = pawn;

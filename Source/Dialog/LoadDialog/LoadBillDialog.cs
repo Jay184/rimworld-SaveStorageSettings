@@ -9,8 +9,10 @@ namespace SaveStorageSettings.Dialog {
             Append,
         }
 
+        public BillStack BillStack { get; set; }
+
         private readonly bool Append;
-        private readonly BillStack BillStack;
+
 
         public LoadBillDialog(string type, BillStack billStack, bool append) : base(type) {
             Append = append;

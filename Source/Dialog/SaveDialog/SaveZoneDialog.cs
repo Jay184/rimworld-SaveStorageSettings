@@ -4,7 +4,7 @@ using RimWorld;
 namespace SaveStorageSettings.Dialog {
     // Stockpiles
     public class SaveZoneDialog : SaveDialog {
-        private readonly Zone_Stockpile Stockpile;
+        public Zone_Stockpile Stockpile { get; set; }
 
         public SaveZoneDialog(string type, Zone_Stockpile stockpile) : base(type) {
             Stockpile = stockpile;

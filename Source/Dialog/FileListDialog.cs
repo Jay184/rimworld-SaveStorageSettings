@@ -44,7 +44,8 @@ namespace RimWorld {
 
         public static readonly Color UnimportantTextColor = new Color(1f, 1f, 1f, 0.5f);
 
-        private readonly string DirectoryName;
+        public string DirectoryName { get; set; }
+
 
         public override Vector2 InitialSize => new Vector2(600f, 700f);
         protected virtual bool ShowTextInput => false;

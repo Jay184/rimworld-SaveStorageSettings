@@ -4,7 +4,8 @@ using RimWorld;
 namespace SaveStorageSettings.Dialog {
     // Bills
     public class SaveBillDialog : SaveDialog {
-        private readonly BillStack BillStack;
+        public BillStack BillStack { get; set; }
+
 
         public SaveBillDialog(string type, BillStack billStack) : base(type) {
             BillStack = billStack;

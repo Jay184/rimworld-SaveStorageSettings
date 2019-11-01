@@ -4,7 +4,7 @@ using RimWorld;
 namespace SaveStorageSettings.Dialog {
     // Shelves, Graves and Sarcophagus'
     public class SaveStorageDialog : SaveDialog {
-        private readonly StorageSettings Settings;
+        public StorageSettings Settings { get; set; }
 
         public SaveStorageDialog(string type, StorageSettings settings) : base(type) {
             Settings = settings;

@@ -43,13 +43,17 @@ namespace SaveStorageSettings {
     // Stockpiles
     [HarmonyPatch(typeof(Zone_Stockpile), "GetGizmos")]
     static class Patch_Zone_Stockpile_GetGizmos {
-        static void Postfix(Zone_Stockpile __instance, ref IEnumerable<Gizmo> __result) {
-            List<Gizmo> gizmos = new List<Gizmo>(__result) {
-                GizmoUtil.SaveGizmo(new SaveZoneDialog("stockpiles", __instance), "SaveStorageSettings.SaveZoneSettings", "SaveStorageSettings.SaveZoneSettingsDesc"),
-                GizmoUtil.LoadGizmo(new LoadZoneDialog("stockpiles", __instance), "SaveStorageSettings.LoadZoneSettings", "SaveStorageSettings.LoadZoneSettingsDesc"),
-            };
+        static readonly SaveZoneDialog SaveDialog = new SaveZoneDialog("stockpiles", null);
+        static readonly LoadZoneDialog LoadDialog = new LoadZoneDialog("stockpiles", null);
 
-            __result = gizmos;
+        static readonly Gizmo SaveGizmo = GizmoUtil.SaveGizmo(SaveDialog, "SaveStorageSettings.SaveZoneSettings", "SaveStorageSettings.SaveZoneSettingsDesc");
+        static readonly Gizmo LoadGizmo = GizmoUtil.LoadGizmo(LoadDialog, "SaveStorageSettings.LoadZoneSettings", "SaveStorageSettings.LoadZoneSettingsDesc");
+
+        static void Postfix(Zone_Stockpile __instance, ref IEnumerable<Gizmo> __result) {
+            SaveDialog.Stockpile = __instance;
+            LoadDialog.Stockpile = __instance;
+
+            __result = new List<Gizmo>(__result) { SaveGizmo, LoadGizmo };
         }
     }
 
@@ -68,8 +72,14 @@ namespace SaveStorageSettings {
     [HarmonyPatch(typeof(Pawn), "GetGizmos")]
     static class Patch_Pawn_GetGizmos {
         const long TENTH_SECOND = TimeSpan.TicksPerSecond / 10;
-
         static FieldInfo OnOperationTab = null;
+
+        static readonly SaveOperationDialog SaveDialog = new SaveOperationDialog("operations", null);
+        static readonly LoadOperationDialog LoadDialog = new LoadOperationDialog("operations", null);
+
+        static readonly Gizmo SaveGizmo = GizmoUtil.SaveGizmo(SaveDialog, "SaveStorageSettings.SaveOperations", "SaveStorageSettings.SaveZoneSaveOperationsDescSettingsDesc");
+        static readonly Gizmo LoadGizmo = GizmoUtil.LoadGizmo(LoadDialog, "SaveStorageSettings.LoadOperations", "SaveStorageSettings.LoadOperationsDesc");
+
 
         static Patch_Pawn_GetGizmos() {
             OnOperationTab = typeof(HealthCardUtility).GetField("onOperationTab", BindingFlags.Static | BindingFlags.NonPublic);
@@ -79,17 +89,19 @@ namespace SaveStorageSettings {
 
             if (!__instance.IsColonist && !__instance.IsPrisoner) return;
 
+            SaveDialog.Pawn = __instance;
+            LoadDialog.Pawn = __instance;
+
+            if (__instance.RaceProps.Animal) {
+                SaveDialog.DirectoryName = "operationsAnimal";
+                LoadDialog.DirectoryName = "operationsAnimal";
+            } else {
+                SaveDialog.DirectoryName = "operationsHuman";
+                LoadDialog.DirectoryName = "operationsHuman";
+            }
 
             if (DateTime.Now.Ticks - Patch_HealthCardUtility_DrawHealthSummary.LastCallTime < TENTH_SECOND) {
-                string type = "operationsHuman";
-                if (__instance.RaceProps.Animal) type = "operationsAnimal";
-
-                List<Gizmo> gizmos = new List<Gizmo>(__result) {
-                    GizmoUtil.SaveGizmo(new SaveOperationDialog(type, __instance), "SaveStorageSettings.SaveOperations", "SaveStorageSettings.SaveOperationsDesc"),
-                    GizmoUtil.LoadGizmo(new LoadOperationDialog(type, __instance), "SaveStorageSettings.LoadOperations", "SaveStorageSettings.LoadOperationsDesc")
-                };
-
-                __result = gizmos;
+                __result = new List<Gizmo>(__result) { SaveGizmo, LoadGizmo };
             }
         }
     }
@@ -203,18 +215,29 @@ namespace SaveStorageSettings {
     // Buildings with bills
     [HarmonyPatch(typeof(Building), "GetGizmos")]
     static class Patch_Building_GetGizmos {
+        static readonly SaveBillDialog SaveDialog = new SaveBillDialog("unknown", null);
+        static readonly LoadBillDialog LoadDialog = new LoadBillDialog("unknown", null, false);
+        static readonly LoadBillDialog AppendDialog = new LoadBillDialog("unknown", null, true);
+
+        static readonly Gizmo SaveGizmo = GizmoUtil.SaveGizmo(SaveDialog, "SaveStorageSettings.SaveBills", "SaveStorageSettings.SaveBillsDesc");
+        static readonly Gizmo LoadGizmo = GizmoUtil.LoadGizmo(LoadDialog, "SaveStorageSettings.LoadBills", "SaveStorageSettings.LoadBillsDesc");
+        static readonly Gizmo AppendGizmo = GizmoUtil.AppendGizmo(AppendDialog, "SaveStorageSettings.AppendBills", "SaveStorageSettings.AppendBillsDesc");
+
+
         static void Postfix(Building __instance, ref IEnumerable<Gizmo> __result) {
             if (!__instance.def.IsWorkTable) return;
 
             string typeName = GetTypeFromDef(__instance.def.defName);
 
-            List<Gizmo> gizmos = new List<Gizmo>(__result) {
-                GizmoUtil.SaveGizmo(new SaveBillDialog(typeName, ((Building_WorkTable)__instance).billStack), "SaveStorageSettings.SaveBills", "SaveStorageSettings.SaveBillsDesc"),
-                GizmoUtil.LoadGizmo(new LoadBillDialog(typeName, ((Building_WorkTable)__instance).billStack, false), "SaveStorageSettings.LoadBills", "SaveStorageSettings.LoadBillsDesc"),
-                GizmoUtil.AppendGizmo(new LoadBillDialog(typeName, ((Building_WorkTable)__instance).billStack, true), "SaveStorageSettings.AppendBills", "SaveStorageSettings.AppendBillsDesc"),
-            };
+            SaveDialog.DirectoryName = typeName;
+            LoadDialog.DirectoryName = typeName;
+            AppendDialog.DirectoryName = typeName;
 
-            __result = gizmos;
+            SaveDialog.BillStack = ( (Building_WorkTable)__instance ).billStack;
+            LoadDialog.BillStack = ( (Building_WorkTable)__instance ).billStack;
+            AppendDialog.BillStack = ( (Building_WorkTable)__instance ).billStack;
+
+            __result = new List<Gizmo>(__result) { SaveGizmo, LoadGizmo, AppendGizmo };
         }
 
         private static string GetTypeFromDef(string type) {
@@ -242,28 +265,41 @@ namespace SaveStorageSettings {
     // Buildings that have a storage option (shelves)
     [HarmonyPatch(typeof(Building_Storage), "GetGizmos")]
     static class Patch_BuildingStorage_GetGizmos {
-        static void Postfix(Building __instance, ref IEnumerable<Gizmo> __result) {
-            List<Gizmo> gizmos = new List<Gizmo>(__result) {
-                GizmoUtil.SaveGizmo(new SaveStorageDialog(__instance.def.defName, ((Building_Storage)__instance).settings), "SaveStorageSettings.SaveZoneSettings", "SaveStorageSettings.SaveZoneSettingsDesc"),
-                GizmoUtil.LoadGizmo(new LoadStorageDialog(__instance.def.defName, ((Building_Storage)__instance).settings), "SaveStorageSettings.LoadZoneSettings", "SaveStorageSettings.LoadZoneSettingsDesc"),
-            };
+        static readonly SaveStorageDialog SaveDialog = new SaveStorageDialog("unknown", null);
+        static readonly LoadStorageDialog LoadDialog = new LoadStorageDialog("unknown", null);
 
-            __result = gizmos;
+        static readonly Gizmo SaveGizmo = GizmoUtil.SaveGizmo(SaveDialog, "SaveStorageSettings.SaveZoneSettings", "SaveStorageSettings.SaveZoneSettingsDesc");
+        static readonly Gizmo LoadGizmo = GizmoUtil.LoadGizmo(LoadDialog, "SaveStorageSettings.LoadZoneSettings", "SaveStorageSettings.LoadZoneSettingsDesc");
+
+
+        static void Postfix(Building __instance, ref IEnumerable<Gizmo> __result) {
+            SaveDialog.DirectoryName = __instance.def.defName;
+            LoadDialog.DirectoryName = __instance.def.defName;
+
+            SaveDialog.Settings = ( (Building_Storage)__instance ).settings;
+            LoadDialog.Settings = ( (Building_Storage)__instance ).settings;
+
+            __result = new List<Gizmo>(__result) { SaveGizmo, LoadGizmo };
         }
     }
 
     // Graves
     [HarmonyPatch(typeof(Building_Grave), "GetGizmos")]
     static class Patch_BuildingGrave_GetGizmos {
+        static readonly SaveStorageDialog SaveDialog = new SaveStorageDialog("graves", null);
+        static readonly LoadStorageDialog LoadDialog = new LoadStorageDialog("graves", null);
+
+        static readonly Gizmo SaveGizmo = GizmoUtil.SaveGizmo(SaveDialog, "SaveStorageSettings.SaveGrave", "SaveStorageSettings.SaveGraveDesc");
+        static readonly Gizmo LoadGizmo = GizmoUtil.LoadGizmo(LoadDialog, "SaveStorageSettings.LoadGrave", "SaveStorageSettings.LoadGraveDesc");
+
         static void Postfix(Building __instance, ref IEnumerable<Gizmo> __result) {
             if (( (Building_Grave)__instance ).assignedPawn != null) return;
 
-            List<Gizmo> gizmos = new List<Gizmo>(__result) {
-                GizmoUtil.SaveGizmo(new SaveStorageDialog("graves", ((Building_Grave)__instance).GetStoreSettings()), "SaveStorageSettings.SaveGrave", "SaveStorageSettings.SaveGraveDesc"),
-                GizmoUtil.LoadGizmo(new LoadStorageDialog("graves", ((Building_Grave)__instance).GetStoreSettings()), "SaveStorageSettings.LoadGrave", "SaveStorageSettings.LoadGraveDesc"),
-            };
+            StorageSettings settings = ( (Building_Grave)__instance ).GetStoreSettings();
+            SaveDialog.Settings = settings;
+            LoadDialog.Settings = settings;
 
-            __result = gizmos;
+            __result = new List<Gizmo>(__result) { SaveGizmo, LoadGizmo };
         }
     }
 }
