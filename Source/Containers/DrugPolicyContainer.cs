@@ -24,9 +24,9 @@ namespace SaveStorageSettings {
                 WriteField(writer, "allowedForAddiction", entry.allowedForAddiction.ToString());
                 WriteField(writer, "allowedForJoy", entry.allowedForJoy.ToString());
                 WriteField(writer, "allowScheduled", entry.allowScheduled.ToString());
-                WriteField(writer, "daysFrequency", entry.daysFrequency.ToString());
-                WriteField(writer, "onlyIfJoyBelow", entry.onlyIfJoyBelow.ToString());
-                WriteField(writer, "onlyIfMoodBelow", entry.onlyIfMoodBelow.ToString());
+                WriteField(writer, "daysFrequency", Math.Round(entry.daysFrequency, 1).ToString());
+                WriteField(writer, "onlyIfJoyBelow", Math.Round(entry.onlyIfJoyBelow, 2).ToString());
+                WriteField(writer, "onlyIfMoodBelow", Math.Round(entry.onlyIfMoodBelow, 2).ToString());
                 WriteField(writer, "takeToInventory", entry.takeToInventory.ToString());
                 WriteField(writer, "takeToInventoryTempBuffer", entry.takeToInventoryTempBuffer);
                 writer.WriteLine(BREAK);

@@ -65,9 +65,9 @@ namespace SaveStorageSettings {
                     if (filter.allowedHitPointsConfigurable) {
                         builder = new StringBuilder();
 
-                        builder.Append(filter.AllowedHitPointsPercents.min.ToString("N4"));
+                        builder.Append(Math.Round(filter.AllowedHitPointsPercents.min, 2).ToString());
                         builder.Append(":");
-                        builder.Append(filter.AllowedHitPointsPercents.max.ToString("N4"));
+                        builder.Append(Math.Round(filter.AllowedHitPointsPercents.max, 2).ToString());
 
                         WriteField(writer, "allowedHitPointsPercents", builder.ToString());
                     }

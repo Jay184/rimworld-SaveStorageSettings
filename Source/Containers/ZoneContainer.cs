@@ -70,9 +70,9 @@ namespace SaveStorageSettings {
             if (AllowedHitPoints.HasValue) {
                 builder = new StringBuilder();
 
-                builder.Append(AllowedHitPoints.Value.min.ToString("N4"));
+                builder.Append(Math.Round(AllowedHitPoints.Value.min, 2).ToString());
                 builder.Append(":");
-                builder.Append(AllowedHitPoints.Value.max.ToString("N4"));
+                builder.Append(Math.Round(AllowedHitPoints.Value.max, 2).ToString());
 
                 WriteField(writer, "allowedHitPointsPercents", builder.ToString());
             }

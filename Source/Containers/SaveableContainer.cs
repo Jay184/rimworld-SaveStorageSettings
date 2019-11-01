@@ -51,9 +51,9 @@ namespace SaveStorageSettings {
                     Messages.Message("Loaded settings!", MessageTypeDefOf.TaskCompletion, false);
                 }
             } catch (BadHeaderException ex) {
-                Log.Error($"SaveStorageSettings: Failed to save to file \"{ fileInfo.FullName }\". { ex }");
+                Log.Error($"SaveStorageSettings: Failed to load from file \"{ fileInfo.FullName }\". { ex }");
             } catch (Exception ex) when (ex is IOException) {
-                Log.Error($"SaveStorageSettings: Failed to save to file \"{ fileInfo.FullName }\". { ex }");
+                Log.Error($"SaveStorageSettings: Failed to load from file \"{ fileInfo.FullName }\". { ex }");
             }
         }
 
