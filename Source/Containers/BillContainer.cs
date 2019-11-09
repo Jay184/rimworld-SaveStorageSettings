@@ -221,8 +221,8 @@ namespace SaveStorageSettings {
                         bill.hpRange = new FloatRange(float.Parse(hpRange[0]), float.Parse(hpRange[1]));
                         break;
                     case "qualityRange":
-                        if (!string.IsNullOrEmpty(value) && value.IndexOf(':') != -1) {
-                            string[] qualityRange = value.Split(':');
+                        if (!string.IsNullOrEmpty(value) && value.IndexOf('~') != -1) {
+                            string[] qualityRange = value.Split('~');
                             bill.qualityRange = new QualityRange(
                                 (QualityCategory)Enum.Parse(typeof(QualityCategory), qualityRange[0], true),
                                 (QualityCategory)Enum.Parse(typeof(QualityCategory), qualityRange[1], true));
